@@ -44,24 +44,6 @@ Set::~Set()
 //Copy constructor
 Set::Set (const Set& source)
 {
-	////head = new Node(0, tail, nullptr);
-	////tail = new Node(0, nullptr, head);
-
-	//Node* ptr = source.head->next;
-	//Node* pos = head;
-
-	//for (int i = 0; i < source.counter; i++)
-	//{
-	//	Node* newNode = new Node(ptr->value, tail, tail->prev);
-	//	//counter++;
-
-	//	newNode->prev->next = newNode;
-	//	newNode->next->prev = newNode; 
-
-	//	pos = pos->next;
-	//	ptr = ptr->next;
-	//}
-
 	init();
 
 	Node* current = source.head->next;
@@ -147,6 +129,7 @@ void Set::clearSet()
 
 		current = current->next;
 		delete current->prev;
+		counter--;
 	}
 }
 
@@ -154,7 +137,17 @@ void Set::clearSet()
 //Add to *this all elements in Set S (repeated elements are not allowed)
 Set& Set::operator+=(const Set& S)
 {
-	//IMPLEMENT before HA session on week 15
+	Node* current = S.head->next;
+
+	while (true)
+	{
+		if (current == S.tail)
+			break;
+
+		insert(current->value);
+
+		current = current->next;
+	}
 
 	return *this;
 }
@@ -164,6 +157,38 @@ Set& Set::operator+=(const Set& S)
 Set& Set::operator*=(const Set& S)
 {
 	//IMPLEMENT
+	if (_empty() || S._empty())
+	{
+		cout << "One of the Sets are empty! Invalid inputs!" << endl << endl;
+		return *this;
+	}
+	
+	Set temp;
+
+	Node* thisCurrent = head->next;
+	Node* SCurrent = S.head->next; 
+
+	while (true)
+	{
+		if (thisCurrent == tail && SCurrent == tail)
+			break;
+
+		if (thisCurrent->value == SCurrent->value)
+		{
+			temp.insert(thisCurrent->value);
+			thisCurrent = thisCurrent->next;
+			SCurrent = SCurrent->next;
+		}
+
+		else if (thisCurrent->value < SCurrent->value)
+			thisCurrent = thisCurrent->next;
+
+		else if (thisCurrent->value > SCurrent->value)
+			SCurrent = SCurrent->next;
+
+	}
+
+	swap(temp, *this);
 
 	return *this;
 }

@@ -24,7 +24,7 @@ int main()
 	cout << "S1 = " << S1 << endl;		//S1 = empty set
 	cout << "S2 = " << S2 << endl;		//S2 = {-4}
 
-	system("pause");
+	//system("pause");
 	/*****************************************************
 	* TEST PHASE 1                                       *
 	* Constructor: create a Set from an array            *
@@ -80,13 +80,13 @@ int main()
 	cout << "\nS1.is_member(99999) ? "
 		 << (S1.is_member(99999) ? 'T' : 'F') << endl;
 
-	system("pause");
+	//system("pause");
 
 	/*****************************************************
 	* TEST PHASE 5                                       *
 	* cardinality, make_empty                            *
 	******************************************************/
-	cout << "\nTEST PHASE 5: cardinality and make_empty\n\n";
+	cout << "\nTEST PHASE 5: cardinality and clearSet\n\n";
 
 	cout << "S1.cardinality() = "
 		 << S1.cardinality() << endl;	//3
@@ -98,6 +98,7 @@ int main()
 	cout << "S1.cardinality() = "
 		 << S1.cardinality() << endl;	//0
 
+	//system("pause");
 	/*****************************************************
 	* TEST PHASE 6                                       *
 	* Overloaded operators: operator+=, operator*=       *
@@ -106,13 +107,15 @@ int main()
 	cout << "\nTEST PHASE 6: operator+=, operator*=, operator-=\n\n";
 
 	S5 += S4;
-	S4 *= S4;
-	S1 -= S1;
+
+	S4 *= S1;
+	//S1 -= S1;
 
 	cout << "S5 = " << S5 << endl;		//S5 = {1 2 3 4 5}
-	cout << "S4 = " << S4 << endl;		//S5 = {2 3 4}
+	cout << "S4 = " << S4 << endl;		//S4 = {2 3 4}
 	cout << "S1 = " << S1 << endl;		//S1 = empty set
 
+	system("pause");
 
 	/*****************************************************
 	* TEST PHASE 7                                       *
