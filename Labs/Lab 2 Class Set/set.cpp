@@ -248,7 +248,7 @@ Set& Set::operator-=(const Set& S)
 //a <= b iff every member of a is a member of b
 bool Set::operator<=(const Set& b) const
 {
-	Node* current = head->next;
+	Node* current = head->next;            /// O(n^2)
 
 	for (int i = 0; i < cardinality(); i++)
 	{
