@@ -148,6 +148,8 @@ int main()
 	cout << "S4 <= S1 ? " << (S4 <= S1 ? 'T' : 'F') << endl;	//T
 	cout << "S4 <  S1 ? " << (S4 <  S1 ? 'T' : 'F') << endl;	//T
 
+	system("pause");
+
 	/*****************************************************
 	* TEST PHASE 9                                       *
 	* Overloaded operators: mixed-mode arithmetic        *

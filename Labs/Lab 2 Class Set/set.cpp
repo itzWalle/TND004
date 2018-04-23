@@ -248,10 +248,16 @@ Set& Set::operator-=(const Set& S)
 //a <= b iff every member of a is a member of b
 bool Set::operator<=(const Set& b) const
 {
-	//IMPLEMENT
+	Node* current = head->next;
 
+	for (int i = 0; i < cardinality(); i++)
+	{
+		if (!b.is_member(current->value))
+			return false;
+		current = current->next;
+	}
 
-	return false; //remove this line
+	return true;
 }
 
 
@@ -259,9 +265,10 @@ bool Set::operator<=(const Set& b) const
 //a == b, iff a <= b and b <= a
 bool Set::operator==(const Set& b) const
 {
-	//IMPLEMENT
+	if (b<=*this && *this<=b)
+		return true;
 
-	return false; //remove this line
+	return false;
 }
 
 
@@ -269,9 +276,7 @@ bool Set::operator==(const Set& b) const
 //a == b, iff a <= b and b <= a
 bool Set::operator!=(const Set& b) const
 {
-	//IMPLEMENT
-
-	return false; //remove this line
+	return !(*this == b);   /// this == b -> true or false, return the opposite
 }
 
 
@@ -279,8 +284,10 @@ bool Set::operator!=(const Set& b) const
 //a == b, iff a <= b but not b <= a
 bool Set::operator<(const Set& b) const
 {
-	//IMPLEMENT
-
+	if (*this <= b)
+	{
+		return (*this != b);
+	}
 	return false; //remove this line
 }
 
