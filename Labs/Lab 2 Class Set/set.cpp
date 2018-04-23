@@ -64,11 +64,9 @@ Set::Set (const Set& source)
 //Note that call-by-value is used for source parameter
 Set& Set::operator=(Set source)
 {
-	Set temp(source);
-
-	swap(temp.head, head);
-	swap(temp.tail, tail);
-	swap(temp.counter, counter); //såklart
+	swap(source.head, head);
+	swap(source.tail, tail);
+	swap(source.counter, counter); //såklart
 
 	return *this;
 }
@@ -163,7 +161,7 @@ Set& Set::operator*=(const Set& S)
 		return *this;
 	}
 	
-	Set temp;
+	//Set temp;
 
 	Node* thisCurrent = head->next;
 	Node* SCurrent = S.head->next; 
@@ -175,22 +173,26 @@ Set& Set::operator*=(const Set& S)
 
 		if (thisCurrent->value == SCurrent->value)
 		{
-			temp.insert(thisCurrent->value);
 			thisCurrent = thisCurrent->next;
 			SCurrent = SCurrent->next;
 		}
 
 		else if (thisCurrent->value < SCurrent->value)
 		{
-			if (thisCurrent->next == tail)
+			if (thisCurrent == tail)
 				break;
 			else
+			{
+				///Delete this node
 				thisCurrent = thisCurrent->next;
+				deleteNode(thisCurrent->prev);
+			}
+				
 		}
 
 		else if (thisCurrent->value > SCurrent->value)
 		{
-			if (SCurrent->next == S.tail)
+			if (SCurrent == S.tail)
 				break;
 			else
 				SCurrent = SCurrent->next;
@@ -198,8 +200,6 @@ Set& Set::operator*=(const Set& S)
 			
 
 	}
-
-	swap(temp, *this);
 
 	return *this;
 }
@@ -324,5 +324,15 @@ void Set::insertBefore(int val, Node* node)
 	node->prev->next = newNode;
 	node->prev = newNode;
 	counter++;
+}
+
+
+/// Remove Node
+void Set::deleteNode(Node* node)
+{
+	node->prev->next = node->next;
+	node->next->prev = node->prev;
+
+	delete node;
 }
 

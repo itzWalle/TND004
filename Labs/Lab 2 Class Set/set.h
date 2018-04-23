@@ -232,6 +232,8 @@ private:
 
 	void insertBefore(int val, Node* node);
 
+	void deleteNode(Node* node);
+
 	/* **************************** *
 	* Overloaded Global Operators   *
 	* ***************************** */
