@@ -106,15 +106,14 @@ int main()
 	cout << "\nTEST PHASE 6: operator+=, operator*=, operator-=\n\n";
 
 	S5 += S4;
-
 	S4 *= S4;
-	//S1 -= S1;
+	S1 -= S1;
 
 	cout << "S5 = " << S5 << endl;		//S5 = {1 2 3 4 5}
 	cout << "S4 = " << S4 << endl;		//S4 = {2 3 4}
 	cout << "S1 = " << S1 << endl;		//S1 = empty set
 
-	system("pause");
+	//system("pause");
 
 	/*****************************************************
 	* TEST PHASE 7                                       *
@@ -134,6 +133,8 @@ int main()
 	cout << "S5 = " << S5 << endl;		//S5 = {1 5}
 
 	cout << "S2 + S1 * S5 = " << S2 + S1 * S5 << endl;	//{1 3 5}
+
+	system("pause");
 
 	/*****************************************************
 	* TEST PHASE 8                                       *

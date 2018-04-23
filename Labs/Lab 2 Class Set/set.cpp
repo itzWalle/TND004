@@ -155,50 +155,50 @@ Set& Set::operator+=(const Set& S)
 Set& Set::operator*=(const Set& S)
 {
 	//IMPLEMENT
-	if (_empty() || S._empty())
+	if (this->_empty() || S._empty())
 	{
 		cout << "One of the Sets are empty! Invalid inputs!" << endl << endl;
 		return *this;
 	}
-	
-	//Set temp;
 
 	Node* thisCurrent = head->next;
 	Node* SCurrent = S.head->next; 
 
-	while (true)
+	while (thisCurrent != tail && SCurrent != S.tail)
 	{
-		if (thisCurrent == tail && SCurrent == tail)
+		if (thisCurrent == tail)
 			break;
 
 		if (thisCurrent->value == SCurrent->value)
 		{
-			thisCurrent = thisCurrent->next;
-			SCurrent = SCurrent->next;
+			if (thisCurrent != tail)
+				thisCurrent = thisCurrent->next;
+			if (SCurrent != tail)
+				SCurrent = SCurrent->next;
 		}
 
 		else if (thisCurrent->value < SCurrent->value)
 		{
-			if (thisCurrent == tail)
-				break;
-			else
-			{
+			if (thisCurrent != tail)
 				///Delete this node
 				thisCurrent = thisCurrent->next;
 				deleteNode(thisCurrent->prev);
-			}
-				
 		}
 
 		else if (thisCurrent->value > SCurrent->value)
 		{
-			if (SCurrent == S.tail)
-				break;
-			else
+			if (SCurrent != S.tail)
 				SCurrent = SCurrent->next;
 		}
-			
+	}
 
+	if (SCurrent == S.tail)
+	{
+		while (thisCurrent != tail)
+		{
+			thisCurrent = thisCurrent->next;
+			deleteNode(thisCurrent->prev);
+		}
 	}
 
 	return *this;
@@ -209,7 +209,40 @@ Set& Set::operator*=(const Set& S)
 Set& Set::operator-=(const Set& S)
 {
 	//IMPLEMENT
+	if (_empty() || S._empty())
+	{
+		cout << "One of the Sets are empty! Invalid inputs!" << endl << endl;
+		return *this;
+	}
 
+	Node* thisCurrent = head->next;
+	Node* SCurrent = S.head->next;
+
+	while (true)
+	{
+		if (thisCurrent == tail && SCurrent == tail)
+			break;
+
+		if (thisCurrent->value == SCurrent->value)
+		{
+			///Delete the common node
+			thisCurrent = thisCurrent->next;
+			deleteNode(thisCurrent->prev);
+			SCurrent = SCurrent->next;
+		}
+
+		if (thisCurrent->value < SCurrent->value)
+		{
+			if (thisCurrent != tail)
+				thisCurrent = thisCurrent->next;
+		}
+
+		if (thisCurrent->value > SCurrent->value)
+		{
+			if (SCurrent != S.tail)
+				SCurrent = SCurrent->next;
+		}
+	}
 
 	return *this;
 }
@@ -219,6 +252,7 @@ Set& Set::operator-=(const Set& S)
 bool Set::operator<=(const Set& b) const
 {
 	//IMPLEMENT
+
 
 	return false; //remove this line
 }
@@ -327,12 +361,16 @@ void Set::insertBefore(int val, Node* node)
 }
 
 
-/// Remove Node
+/// Delete Node
 void Set::deleteNode(Node* node)
 {
+	//Node* newNode = node->next;
+
 	node->prev->next = node->next;
 	node->next->prev = node->prev;
+	counter--;
 
 	delete node;
+	//node = newNode;
 }
 
