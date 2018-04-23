@@ -1,9 +1,2 @@
-﻿  main.cpp
-  set.cpp
-c:\users\adde_\google drive\university\tnd004\labs\lab 2 class set\set.cpp(209): warning C4100: 'S': unreferenced formal parameter
-c:\users\adde_\google drive\university\tnd004\labs\lab 2 class set\set.cpp(219): warning C4100: 'b': unreferenced formal parameter
-c:\users\adde_\google drive\university\tnd004\labs\lab 2 class set\set.cpp(229): warning C4100: 'b': unreferenced formal parameter
-c:\users\adde_\google drive\university\tnd004\labs\lab 2 class set\set.cpp(239): warning C4100: 'b': unreferenced formal parameter
-c:\users\adde_\google drive\university\tnd004\labs\lab 2 class set\set.cpp(249): warning C4100: 'b': unreferenced formal parameter
-  Generating Code...
+﻿  set.cpp
   Lab2.vcxproj -> C:\Users\adde_\Google Drive\University\TND004\Labs\Lab 2 Class Set\Lab2\Debug\Lab2.exe
