@@ -181,10 +181,21 @@ Set& Set::operator*=(const Set& S)
 		}
 
 		else if (thisCurrent->value < SCurrent->value)
-			thisCurrent = thisCurrent->next;
+		{
+			if (thisCurrent->next == tail)
+				break;
+			else
+				thisCurrent = thisCurrent->next;
+		}
 
 		else if (thisCurrent->value > SCurrent->value)
-			SCurrent = SCurrent->next;
+		{
+			if (SCurrent->next == S.tail)
+				break;
+			else
+				SCurrent = SCurrent->next;
+		}
+			
 
 	}
 
@@ -198,6 +209,7 @@ Set& Set::operator*=(const Set& S)
 Set& Set::operator-=(const Set& S)
 {
 	//IMPLEMENT
+
 
 	return *this;
 }

@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <iomanip>
 
@@ -108,7 +107,7 @@ int main()
 
 	S5 += S4;
 
-	S4 *= S1;
+	S4 *= S2;
 	//S1 -= S1;
 
 	cout << "S5 = " << S5 << endl;		//S5 = {1 2 3 4 5}
