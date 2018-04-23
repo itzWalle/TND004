@@ -134,7 +134,7 @@ int main()
 
 	cout << "S2 + S1 * S5 = " << S2 + S1 * S5 << endl;	//{1 3 5}
 
-	system("pause");
+	//system("pause");
 
 	/*****************************************************
 	* TEST PHASE 8                                       *

@@ -218,11 +218,8 @@ Set& Set::operator-=(const Set& S)
 	Node* thisCurrent = head->next;
 	Node* SCurrent = S.head->next;
 
-	while (true)
+	while (thisCurrent != tail && SCurrent != S.tail)
 	{
-		if (thisCurrent == tail && SCurrent == tail)
-			break;
-
 		if (thisCurrent->value == SCurrent->value)
 		{
 			///Delete the common node
@@ -231,13 +228,13 @@ Set& Set::operator-=(const Set& S)
 			SCurrent = SCurrent->next;
 		}
 
-		if (thisCurrent->value < SCurrent->value)
+		else if (thisCurrent->value < SCurrent->value)
 		{
 			if (thisCurrent != tail)
 				thisCurrent = thisCurrent->next;
 		}
 
-		if (thisCurrent->value > SCurrent->value)
+		else if (thisCurrent->value > SCurrent->value)
 		{
 			if (SCurrent != S.tail)
 				SCurrent = SCurrent->next;
