@@ -87,7 +87,7 @@ public:
 	Set (const Set& b);
 
 
-	/// std::move, Move semantics
+										/// std::move, Move semantics
 	Set (Set&& source);
 
 	/** Destructor
