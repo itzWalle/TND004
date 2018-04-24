@@ -1,3 +1,4 @@
 ﻿  set.cpp
-e:\burken från hårddisken\universitetet\tnd004\labs\lab 2 class set\set.cpp(253): warning C4018: '<': signed/unsigned mismatch
-  Lab2.vcxproj -> E:\Burken från hårddisken\Universitetet\TND004\Labs\Lab 2 Class Set\Lab2\Debug\Lab2.exe
+c:\users\adde_\google drive\university\tnd004\labs\lab 2 class set\set.cpp(264): warning C4018: '<': signed/unsigned mismatch
+c:\users\adde_\google drive\university\tnd004\labs\lab 2 class set\set.cpp(302): warning C4715: 'Set::operator<': not all control paths return a value
+  Lab2.vcxproj -> C:\Users\adde_\Google Drive\University\TND004\Labs\Lab 2 Class Set\Lab2\Debug\Lab2.exe

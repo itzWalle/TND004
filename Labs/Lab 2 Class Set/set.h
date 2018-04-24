@@ -87,6 +87,9 @@ public:
 	Set (const Set& b);
 
 
+	/// std::move, Move semantics
+	Set (Set&& source);
+
 	/** Destructor
 	 *
 	 * Deallocate all memory (Nodes) allocated by the constructor
@@ -267,7 +270,7 @@ private:
 	 * Return a new Set representing the intersection of S1 with S2, S1*S2
 	 *
 	 */
-	friend Set operator*(Set S1, const Set& S2)
+	friend Set operator*(Set S1, const Set& S2) ///Ta bort const??
 	{
 		return (S1 *= S2);
 	}

@@ -148,7 +148,7 @@ int main()
 	cout << "S4 <= S1 ? " << (S4 <= S1 ? 'T' : 'F') << endl;	//T
 	cout << "S4 <  S1 ? " << (S4 <  S1 ? 'T' : 'F') << endl;	//T
 
-	system("pause");
+	//system("pause");
 
 	/*****************************************************
 	* TEST PHASE 9                                       *
@@ -163,6 +163,8 @@ int main()
 	cout << "S2 = " << S2 << endl;		//S2 = empty set
 	cout << "S5 = " << S5 << endl;		//S5 = {3 4 24}
 
+	//system("pause");
+
 	/*****************************************************
 	* TEST PHASE 10                                      *
 	* Move constructor                                   *
@@ -176,9 +178,14 @@ int main()
 	cout << "*ptr_S = " << *ptr_S << endl;
 	cout << "S5 = " << S5 << endl;
 
+	cout << "S5 * std::move(*ptr_S) = " << S5 * std::move(*ptr_S) << endl;		//{3 4 24}
+	/// Denna funkar ej med move
 	cout << "std::move(*ptr_S) * S5 = " << std::move(*ptr_S) * S5 << endl;		//{3 4 24}
+	/// Denna funkar med move
 
 	delete ptr_S;
+
+	system("pause");
 
 	/*****************************************************
 	* TEST PHASE 11                                      *
@@ -197,6 +204,8 @@ int main()
 	delete ptr_S;
 
 	cout << "Ending ...." << endl;
+
+	system("pause");
 
 	return 0;
 }

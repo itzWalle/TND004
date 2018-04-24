@@ -59,6 +59,17 @@ Set::Set (const Set& source)
 	}
 }
 
+/// std::move, Move semantics
+Set::Set(Set&& source)
+{
+	head = source.head;
+	tail = source.tail;
+	counter = source.counter;			///Macke, sno allt!
+
+	///Sätt till default nu, eller nollställ
+	source.init();
+}
+
 
 //Copy-and-swap assignment operator
 //Note that call-by-value is used for source parameter
@@ -157,7 +168,7 @@ Set& Set::operator*=(const Set& S)
 	//IMPLEMENT
 	if (this->_empty() || S._empty())
 	{
-		cout << "One of the Sets are empty! Invalid inputs!" << endl << endl;
+		//cout << "One of the Sets are empty! Invalid inputs!" << endl << endl;
 		return *this;
 	}
 
@@ -173,7 +184,7 @@ Set& Set::operator*=(const Set& S)
 		{
 			if (thisCurrent != tail)
 				thisCurrent = thisCurrent->next;
-			if (SCurrent != tail)
+			if (SCurrent != S.tail)
 				SCurrent = SCurrent->next;
 		}
 
@@ -211,7 +222,7 @@ Set& Set::operator-=(const Set& S)
 	//IMPLEMENT
 	if (_empty() || S._empty())
 	{
-		cout << "One of the Sets are empty! Invalid inputs!" << endl << endl;
+		//cout << "One of the Sets are empty! Invalid inputs!" << endl << endl;
 		return *this;
 	}
 
@@ -248,16 +259,37 @@ Set& Set::operator-=(const Set& S)
 //a <= b iff every member of a is a member of b
 bool Set::operator<=(const Set& b) const
 {
-	Node* current = head->next;            /// O(n^2)
+	//Node* current = head->next;            /// O(n^2)
+
+	//for (int i = 0; i < cardinality(); i++)
+	//{
+	//	if (!b.is_member(current->value))
+	//		return false;
+	//	current = current->next;
+	//}
+
+	//return true;
+
+	Node* thisCurrent = head->next;
+	Node* bCurrent = b.head->next;
 
 	for (int i = 0; i < cardinality(); i++)
 	{
-		if (!b.is_member(current->value))
-			return false;
-		current = current->next;
-	}
+		if (thisCurrent)
+		{
 
-	return true;
+		}
+
+		else if ()
+		{
+
+		}
+
+		else if ()
+		{
+
+		}
+	}
 }
 
 
@@ -288,7 +320,6 @@ bool Set::operator<(const Set& b) const
 	{
 		return (*this != b);
 	}
-	return false; //remove this line
 }
 
 
