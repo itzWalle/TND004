@@ -146,16 +146,39 @@ void Set::clearSet()
 //Add to *this all elements in Set S (repeated elements are not allowed)
 Set& Set::operator+=(const Set& S)
 {
-	Node* current = S.head->next;
+	Node* thisCurrent = head->next;
+	Node* SCurrent = S.head->next;
 
 	while (true)
 	{
-		if (current == S.tail)
+		if (thisCurrent == tail || SCurrent == S.tail)
 			break;
 
-		insert(current->value);
+		if (thisCurrent->value == SCurrent->value)
+		{
+			thisCurrent = thisCurrent->next;
+			SCurrent = SCurrent->next;
+		}
 
-		current = current->next;
+		else if (thisCurrent->value > SCurrent->value)
+		{
+			insertBefore(SCurrent->value, thisCurrent);
+			SCurrent = SCurrent->next;
+		}
+		
+		else if (thisCurrent->value < SCurrent->value)
+		{
+			thisCurrent = thisCurrent->next;
+		}
+	}
+
+	if (SCurrent != S.tail)
+	{
+		while (SCurrent != S.tail)
+		{
+			insertBefore(SCurrent->value, thisCurrent);
+			SCurrent = SCurrent->next;
+		}
 	}
 
 	return *this;
@@ -270,11 +293,20 @@ bool Set::operator<=(const Set& b) const
 
 	//return true;
 
+	if (counter > b.counter)
+		return false;
+
 	Node* thisCurrent = head->next;
 	Node* bCurrent = b.head->next;
 
-	while (bCurrent != b.tail && thisCurrent != tail)
+	while (true)
 	{
+		if (bCurrent == b.tail && thisCurrent == tail)
+			return true;
+
+		if (thisCurrent == tail)
+			return true;
+
 		if (thisCurrent->value == bCurrent->value)
 		{
 			thisCurrent = thisCurrent->next;
@@ -289,7 +321,8 @@ bool Set::operator<=(const Set& b) const
 
 		else if (thisCurrent->value > bCurrent->value)
 		{
-			return false;
+			if (bCurrent != b.tail)
+				bCurrent = bCurrent->next;
 		}
 	}
 
