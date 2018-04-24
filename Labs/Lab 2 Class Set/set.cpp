@@ -273,23 +273,27 @@ bool Set::operator<=(const Set& b) const
 	Node* thisCurrent = head->next;
 	Node* bCurrent = b.head->next;
 
-	for (int i = 0; i < cardinality(); i++)
+	while (bCurrent != b.tail && thisCurrent != tail)
 	{
-		if (thisCurrent)
+		if (thisCurrent->value == bCurrent->value)
 		{
-
+			thisCurrent = thisCurrent->next;
+			bCurrent = bCurrent->next;
 		}
 
-		else if ()
+		else if (thisCurrent->value < bCurrent->value)
 		{
-
+			if (thisCurrent != tail)
+				thisCurrent = thisCurrent->next;
 		}
 
-		else if ()
+		else if (thisCurrent->value > bCurrent->value)
 		{
-
+			return false;
 		}
 	}
+
+	return true;
 }
 
 

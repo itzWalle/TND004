@@ -185,7 +185,7 @@ int main()
 
 	delete ptr_S;
 
-	system("pause");
+	//system("pause");
 
 	/*****************************************************
 	* TEST PHASE 11                                      *
