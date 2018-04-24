@@ -270,7 +270,7 @@ private:
 	 * Return a new Set representing the intersection of S1 with S2, S1*S2
 	 *
 	 */
-	friend Set operator*(Set S1, const Set& S2) ///Ta bort const??
+	friend Set operator*(Set S1, Set S2)					///(Set S1, const Set& S2)	
 	{
 		return (S1 *= S2);
 	}
