@@ -324,6 +324,19 @@ class BinarySearchTree
         return t;
     }
 
+	///Find Successor																												///find_successor
+	BinaryNode * find_successor(BinaryNode *t) const
+	{
+		
+	}
+
+
+	///Find Predecessor																												///find_predecessor
+	BinaryNode * find_predecessor(BinaryNode *t) const
+	{
+
+	}
+
 
     /**
      * Internal method to test if an item is in a subtree.
