@@ -108,6 +108,31 @@ class BinarySearchTree
         return contains( x, root );
     }
 
+	Comparable getParent(Comparable x)	const																							///getParent
+	{
+		if (!contains(x))
+			return Comparable();
+
+		BinaryNode* investigator = root;
+		if (investigator->element == x)
+			return Comparable();
+
+
+		while (investigator != nullptr)
+		{
+			if (investigator->element > x)
+				investigator = investigator->left;
+
+			else if (investigator->element < x)
+				investigator = investigator->right;
+
+			else if (investigator->element == x)
+				return investigator->parent->element;
+		}
+
+		return Comparable();
+	}
+
     /**
      * Test if the tree is logically empty.
      * Return true if empty, false otherwise.

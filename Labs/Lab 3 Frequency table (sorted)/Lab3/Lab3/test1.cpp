@@ -82,21 +82,21 @@ int main( )
 //    /**************************************/
 //    cout << "\nPHASE 6: get_parent\n\n";
 //    /**************************************/
-//
-//    cout << "Parent of node 14: "
-//         << t2.get_parent(14) << endl;
-//
-//    cout << "Parent of node 10: "
-//         << t2.get_parent(10) << endl;
-//
-//    cout << "Parent of node 33: "
-//         << t2.get_parent(33) << endl;
-//
-//    cout << "Parent of node 20: "
-//         << t2.get_parent(20) << endl;
-//
-//    cout << "Parent of node 28: "
-//         << t2.get_parent(28) << endl;
+
+    cout << "Parent of node 14: "
+         << t2.getParent(14) << endl;
+
+    cout << "Parent of node 10: "
+         << t2.getParent(10) << endl;
+
+    cout << "Parent of node 33: "
+         << t2.getParent(33) << endl;
+
+    cout << "Parent of node 20: "
+         << t2.getParent(20) << endl;
+
+    cout << "Parent of node 28: "
+         << t2.getParent(28) << endl;
 
 
     /**************************************/
