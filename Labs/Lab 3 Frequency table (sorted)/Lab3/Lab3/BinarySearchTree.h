@@ -3,6 +3,11 @@
 
 #include "dsexceptions.h"
 #include <algorithm>
+#include <iostream>
+#include <iomanip>
+
+#include "vld.h"
+
 using namespace std;
 
 // BinarySearchTree class
@@ -155,7 +160,7 @@ class BinarySearchTree
         root = remove( x, root );
     }
 
-
+																															///PRIVATE HERE YES
   private:
 
     struct BinaryNode
@@ -163,12 +168,20 @@ class BinarySearchTree
         Comparable element;
         BinaryNode *left;
         BinaryNode *right;
+		///
+		BinaryNode *parent;
 
-        BinaryNode( const Comparable & theElement, BinaryNode *lt, BinaryNode *rt )
+        /*BinaryNode( const Comparable & theElement, BinaryNode *lt, BinaryNode *rt )
           : element{ theElement }, left{ lt }, right{ rt } { }
 
         BinaryNode( Comparable && theElement, BinaryNode *lt, BinaryNode *rt )
-          : element{ std::move( theElement ) }, left{ lt }, right{ rt } { }
+          : element{ std::move( theElement ) }, left{ lt }, right{ rt } { }*/
+
+		BinaryNode(const Comparable & theElement, BinaryNode *lt, BinaryNode *rt, BinaryNode *pt)
+			: element{ theElement }, left{ lt }, right{ rt }, parent{ pt } { }
+
+		BinaryNode(Comparable && theElement, BinaryNode *lt, BinaryNode *rt)
+			: element{ std::move(theElement) }, left{ lt }, right{ rt }, parent{ pt } { }
     };
 
     BinaryNode *root;
@@ -180,17 +193,23 @@ class BinarySearchTree
      * t is the node that roots the subtree.
      * Return a pointer to the root of the subtree.
      */
-    BinaryNode* insert( const Comparable & x, BinaryNode* t )
+    BinaryNode* insert( const Comparable & x, BinaryNode* t)
     {
         if( t == nullptr )
-            t = new BinaryNode{ x, nullptr, nullptr };
-        else if( x < t->element )
-            t->left = insert( x, t->left );
-        else if( t->element < x )
-            t->right = insert( x, t->right );
+            t = new BinaryNode{ x, nullptr, nullptr, nullptr};
+		else if (x < t->element)
+		{
+			t->left = insert(std::move(x), t->left);
+			t->left->parent = t;
+		}
+		else if (t->element < x)
+		{
+			t->right = insert(std::move(x), t->right);
+			t->right->parent = t;
+		}
         else
         {
-            ;  // Duplicate; do nothing
+            ;  // Duplicate; do nothing   (If duplicate, do nothing???)
         }
 
         return t;
@@ -205,11 +224,17 @@ class BinarySearchTree
     BinaryNode* insert( Comparable && x, BinaryNode* t )
     {
         if( t == nullptr )
-            t = new BinaryNode{ std::move( x ), nullptr, nullptr };
-        else if( x < t->element )
-            t->left = insert( std::move( x ), t->left );
-        else if( t->element < x )
-            t->right = insert( std::move( x ), t->right );
+            t = new BinaryNode{ std::move( x ), nullptr, nullptr, nullptr};
+		else if (x < t->element)
+		{
+			t->left = insert(std::move(x), t->left);
+			t->left->parent = t;
+		}
+		else if (t->element < x)
+		{
+			t->right = insert(std::move(x), t->right);
+			t->right->parent = t;
+		}
         else
         {
              ;  // Duplicate; do nothing
@@ -225,7 +250,7 @@ class BinarySearchTree
      * t is the node that roots the subtree.
      * Return a pointer to the root of the subtree.
      */
-    BinaryNode* remove( const Comparable & x, BinaryNode *t )
+    BinaryNode* remove( const Comparable & x, BinaryNode *t )																		///Remove
     {
         if( t == nullptr )
             return t;   // Item not found
@@ -320,17 +345,35 @@ class BinarySearchTree
         t = nullptr;
     }
 
+	void preOrder(BinaryNode* t, int indentation) const																				///preOrder
+	{
+		if (t != nullptr)
+		{
+			cout << setw(indentation) << t->element << endl;
+
+			if (indentation == 0)
+				indentation += 4;
+			else
+				indentation += 2;
+
+			preOrder(t->left, indentation);
+			preOrder(t->right, indentation);
+		}
+	}
+
     /**
      * Internal method to print a subtree rooted at t in sorted order.
      * In-order traversal is used
      */
-    void printTree( BinaryNode *t, ostream & out ) const
+    void printTree( BinaryNode *t, ostream & out ) const																			///printTree
     {
         if( t != nullptr )
         {
-            printTree( t->left, out );
+			preOrder(t, 0);
+
+            /*printTree( t->left, out );
             out << t->element << endl;
-            printTree( t->right, out );
+            printTree( t->right, out );*/
         }
     }
 
@@ -341,8 +384,17 @@ class BinarySearchTree
     {
         if( t == nullptr )
             return nullptr;
-        else
-            return new BinaryNode{ t->element, clone( t->left ), clone( t->right ) };
+		else
+		{
+			BinaryNode* temp = new BinaryNode{ t->element, clone(t->left), clone(t->right), nullptr };
+			
+			if (temp->left != nullptr)
+				temp->left->parent = temp; 
+			if (temp->right != nullptr)
+				temp->right->parent = temp;
+
+			return temp;
+		}
     }
 };
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 #include "BinarySearchTree.h"
 #include "vld.h"
@@ -114,6 +115,8 @@ int main( )
     cout << endl;
 
     cout << "\nFinished testing" << endl;
+
+	system("pause");
 
     return 0;
 }
