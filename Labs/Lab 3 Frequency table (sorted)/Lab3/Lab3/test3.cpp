@@ -2,13 +2,14 @@
 #include <vector>
 #include <iterator>
 #include <fstream>
+#include <string>
 
 #include "BinarySearchTree.h"
 #include "vld.h"
 
 using namespace std;
 
- Test program 3: BiIterator
+ //Test program 3: BiIterator
 int main( )
 {
     BinarySearchTree<string> T;
@@ -63,6 +64,8 @@ int main( )
     }
 
     cout << "\nFinished testing" << endl;
+
+	//system("pause");
 
     return 0;
 }

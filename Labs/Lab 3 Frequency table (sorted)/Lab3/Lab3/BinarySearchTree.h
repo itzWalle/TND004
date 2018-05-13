@@ -509,7 +509,7 @@ class BinarySearchTree
 			}
 
 		private:
-			BinaryNode * current;
+			BinaryNode* current;
 		};
 
 		BiIterator begin() const
