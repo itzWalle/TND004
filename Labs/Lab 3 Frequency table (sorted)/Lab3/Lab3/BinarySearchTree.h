@@ -185,6 +185,42 @@ class BinarySearchTree
         root = remove( x, root );
     }
 
+																																		///FIND_PRED_SUCC
+	void find_pred_succ(const Comparable& x, Comparable& pred, Comparable& succ) const
+	{
+		BinaryNode* current = root;
+
+		while (current != nullptr)
+		{
+			if (current->element == x)
+			{
+				BinaryNode* pre = find_predecessor(current);
+				BinaryNode* suc = find_successor(current);
+
+				if (pre != nullptr)
+					pred = pre->element;
+
+				if (suc != nullptr)
+					succ = suc->element;
+
+				return;
+			}
+			else if (current->element < x)
+			{
+				pred = current->element;
+				current = current->right;
+			}
+			else
+			{
+				succ = current->element;
+				current = current->left;
+			}
+		}
+	}
+
+
+
+
 																															///PRIVATE HERE YES
   private:
 
@@ -324,19 +360,68 @@ class BinarySearchTree
         return t;
     }
 
-	///Find Successor																												///find_successor
+	///Find Successor																										///find_successor
+	public:
 	BinaryNode * find_successor(BinaryNode *t) const
 	{
-		
+		if (t == nullptr)
+			return nullptr;
+
+		else if (t->right)
+		{
+			t = t->right;
+			return findMin(t);
+		}
+
+		while (t->parent != nullptr && t->parent->left != t)
+		{
+			t = t->parent;
+		}
+		return t->parent;
 	}
 
 
 	///Find Predecessor																												///find_predecessor
+	public:
 	BinaryNode * find_predecessor(BinaryNode *t) const
 	{
+		if (t == nullptr)
+			return nullptr;
 
+		else if (t->left)
+		{
+			t = t->left;
+			return findMax(t);
+		}
+
+		while (t->parent != nullptr && t->parent->right != t)
+		{
+			t = t->parent;
+		}
+		return t->parent;
 	}
 
+	public:
+		class BiIterator
+		{
+		public:
+			BiIterator(BinaryNode* p = nullptr);
+			Comparable& operator*() const {}
+			Comparable* operator->() const {}
+			bool operator==(const BiIterator &it) const {}
+			bool operator!=(const BiIterator &it) const {}
+			BiIterator& operator++()
+			{
+				current = find_successor(current);
+				return *this;
+			}
+			BiIterator& ++operator()
+			BiIterator& operator--()
+			BiIterator& ++operator()
+
+		private:
+			Node * current;
+		};
 
     /**
      * Internal method to test if an item is in a subtree.
