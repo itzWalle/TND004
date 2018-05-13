@@ -40,8 +40,8 @@
 //
 //    for(int i = 2; i < 36; i+=2 )
 //    {
-//        if ( t1.contains(i) )
-//       //if( t1.contains( i ) != t1.end() )  //use this after exercise 2: when class BiIterator is implemented
+//        //if ( t1.contains(i) )
+//       if( t1.contains( i ) != t1.end() )  //use this after exercise 2: when class BiIterator is implemented
 //            cout << i << " in the tree" << endl;
 //        else
 //            cout << i << " not in the tree" << endl;

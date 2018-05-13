@@ -32,6 +32,7 @@ class BinarySearchTree
   public:
     BinarySearchTree( ) : root{ nullptr }
     {
+
     }
 
     /**
@@ -101,39 +102,6 @@ class BinarySearchTree
     }
 
     /**
-     * Returns true if x is found in the tree.
-     */
-    bool contains( const Comparable & x ) const
-    {
-        return contains( x, root );
-    }
-
-	Comparable getParent(Comparable x)	const																							///getParent
-	{
-		if (!contains(x))
-			return Comparable();
-
-		BinaryNode* investigator = root;
-		if (investigator->element == x)
-			return Comparable();
-
-
-		while (investigator != nullptr)
-		{
-			if (investigator->element > x)
-				investigator = investigator->left;
-
-			else if (investigator->element < x)
-				investigator = investigator->right;
-
-			else if (investigator->element == x)
-				return investigator->parent->element;
-		}
-
-		return Comparable();
-	}
-
-    /**
      * Test if the tree is logically empty.
      * Return true if empty, false otherwise.
      */
@@ -150,7 +118,7 @@ class BinarySearchTree
         if( isEmpty( ) )
             out << "Empty tree" << endl;
         else
-            printTree( root, out );
+            preOrder( root, 0 );
     }
 
     /**
@@ -184,6 +152,28 @@ class BinarySearchTree
     {
         root = remove( x, root );
     }
+
+	Comparable getParent(Comparable x)	const																							///getParent
+	{
+		BinaryNode* investigator = root;
+		if (investigator->element == x)
+			return Comparable();
+
+
+		while (investigator != nullptr)
+		{
+			if (investigator->element > x)
+				investigator = investigator->left;
+
+			else if (investigator->element < x)
+				investigator = investigator->right;
+
+			else if (investigator->element == x)
+				return investigator->parent->element;
+		}
+
+		return Comparable();
+	}
 																																		///FIND_PRED_SUCC
 	void find_pred_succ(const Comparable& x, Comparable& pred, Comparable& succ) const
 	{
@@ -220,7 +210,19 @@ class BinarySearchTree
 
 
 
-																															///PRIVATE HERE YES
+
+
+
+
+
+
+
+
+
+
+
+
+																																			///PRIVATE HERE YES
   private:
 
     struct BinaryNode
@@ -230,12 +232,6 @@ class BinarySearchTree
         BinaryNode *right;
 		///
 		BinaryNode *parent;
-
-        /*BinaryNode( const Comparable & theElement, BinaryNode *lt, BinaryNode *rt )
-          : element{ theElement }, left{ lt }, right{ rt } { }
-
-        BinaryNode( Comparable && theElement, BinaryNode *lt, BinaryNode *rt )
-          : element{ std::move( theElement ) }, left{ lt }, right{ rt } { }*/
 
 		BinaryNode(const Comparable & theElement, BinaryNode *lt, BinaryNode *rt, BinaryNode *pt)
 			: element{ theElement }, left{ lt }, right{ rt }, parent{ pt } { }
@@ -338,7 +334,7 @@ class BinarySearchTree
      * Internal method to find the smallest item in a subtree t.
      * Return node containing the smallest item.
      */
-    BinaryNode * findMin( BinaryNode *t ) const
+    static BinaryNode * findMin( BinaryNode *t )
     {
         if( t == nullptr )
             return nullptr;
@@ -351,120 +347,13 @@ class BinarySearchTree
      * Internal method to find the largest item in a subtree t.
      * Return node containing the largest item.
      */
-    BinaryNode * findMax( BinaryNode *t ) const
+    static BinaryNode * findMax( BinaryNode *t )
     {
         if( t != nullptr )
             while( t->right != nullptr )
                 t = t->right;
         return t;
     }
-
-	///Find Successor																										///find_successor
-	public:
-	BinaryNode * find_successor(BinaryNode *t) const
-	{
-		if (t == nullptr)
-			return nullptr;
-
-		else if (t->right)
-		{
-			t = t->right;
-			return findMin(t);
-		}
-
-		while (t->parent != nullptr && t->parent->left != t)
-		{
-			t = t->parent;
-		}
-		return t->parent;
-	}
-
-
-	///Find Predecessor																												///find_predecessor
-	public:
-	BinaryNode * find_predecessor(BinaryNode *t) const
-	{
-		if (t == nullptr)
-			return nullptr;
-
-		else if (t->left)
-		{
-			t = t->left;
-			return findMax(t);
-		}
-
-		while (t->parent != nullptr && t->parent->right != t)
-		{
-			t = t->parent;
-		}
-		return t->parent;
-	}
-
-	public:																												///BSTIterator
-		class BiIterator
-		{
-		public:
-			BiIterator() = default;
-			
-			BiIterator(BinaryNode* t) { current = t; }
-
-			Comparable& operator*() const { return current->element; }
-			
-			Comparable* operator->() const { &(current->element); }
-			
-			bool operator==(const BiIterator &t) const { return current == t.current; }
-
-			bool operator!=(const BiIterator &t) const { return current != t.current; }
-			
-			BiIterator& operator++()
-			{
-				current = find_successor(current);
-				return *this;
-			}
-
-			BiIterator& operator--()
-			{
-				current = find_predecessor(current);
-				return *this;
-			}
-
-			BiIterator begin() const
-			{
-				if (isEmpty()) return end();
-
-				return BiIterator(findMin(root));
-			}
-
-			BiIterator end() const
-			{
-				return BiIterator();
-			}
-
-		private:
-			BinaryNode* current;
-		};
-
-    /**
-     * Internal method to test if an item is in a subtree.
-     * x is item to search for.
-     * t is the node that roots the subtree.
-     */
-    BiIterator contains( const Comparable & x, BinaryNode *t ) const
-    {
-        if( t == nullptr )
-            return false;
-        else if( x < t->element )
-            return contains( x, t->left );
-        else if( t->element < x )
-            return contains( x, t->right );
-        else
-            return true;    // Match
-    }
-
-	BiIterator contains(const Comparable& x)
-	{
-		return contains(x, root);
-	}
 
 /****** NONRECURSIVE VERSION*************************
     bool contains( const Comparable & x, BinaryNode *t ) const
@@ -495,22 +384,6 @@ class BinarySearchTree
         t = nullptr;
     }
 
-	void preOrder(BinaryNode* t, int indentation) const																				///preOrder
-	{
-		if (t != nullptr)
-		{
-			cout << setw(indentation) << t->element << endl;
-
-			if (indentation == 0)
-				indentation += 4;
-			else
-				indentation += 2;
-
-			preOrder(t->left, indentation);
-			preOrder(t->right, indentation);
-		}
-	}
-
     /**
      * Internal method to print a subtree rooted at t in sorted order.
      * In-order traversal is used
@@ -526,6 +399,22 @@ class BinarySearchTree
             printTree( t->right, out );*/
         }
     }
+
+	void preOrder(BinaryNode* t, int indentation) const																				///preOrder
+	{
+		if (t != nullptr)
+		{
+			cout << setw(indentation) << t->element << endl;
+
+			if (indentation == 0)
+				indentation += 4;
+			else
+				indentation += 2;
+
+			preOrder(t->left, indentation);
+			preOrder(t->right, indentation);
+		}
+	}
 
     /**
      * Internal method to clone subtree.
@@ -546,6 +435,117 @@ class BinarySearchTree
 			return temp;
 		}
     }
+
+	///Find Successor																												///find_successor
+	static BinaryNode * find_successor(BinaryNode *t)
+	{
+		if (t == nullptr)
+			return nullptr;
+
+		else if (t->right)
+		{
+			t = t->right;
+			return findMin(t);
+		}
+
+		while (t->parent != nullptr && t->parent->left != t)
+		{
+			t = t->parent;
+		}
+		return t->parent;
+	}
+
+
+	///Find Predecessor																												///find_predecessor
+	static BinaryNode * find_predecessor(BinaryNode *t)
+	{
+		if (t == nullptr)
+			return nullptr;
+
+		else if (t->left)
+		{
+			t = t->left;
+			return findMax(t);
+		}
+
+		while (t->parent != nullptr && t->parent->right != t)
+		{
+			t = t->parent;
+		}
+		return t->parent;
+	}
+
+
+
+
+	public:																																			///PUBLIC AGAIN
+
+																																						///BSTIterator
+		class BiIterator
+		{
+		public:
+			BiIterator() = default;
+
+			BiIterator(BinaryNode* t) { current = t; }
+
+			Comparable& operator*() const { return current->element; }
+
+			Comparable* operator->() const { return &(current->element); }
+
+			bool operator==(const BiIterator &t) const { return current == t.current; }
+
+			bool operator!=(const BiIterator &t) const { return current != t.current; }
+
+			BiIterator& operator++()
+			{
+				current = find_successor(current);
+				return *this;
+			}
+
+			BiIterator& operator--()
+			{
+				current = find_predecessor(current);
+				return *this;
+			}
+
+		private:
+			BinaryNode * current;
+		};
+
+		BiIterator begin() const
+		{
+			if (isEmpty()) return end();
+
+			return BiIterator(findMin(root));
+		}
+
+		BiIterator end() const
+		{
+			return BiIterator();
+		}
+
+																														///Containers
+		BiIterator contains(const Comparable& x)
+		{
+			return contains(x, root);
+		}
+
+		/**
+		* Internal method to test if an item is in a subtree.
+		* x is item to search for.
+		* t is the node that roots the subtree.
+		*/
+		BiIterator contains(const Comparable & x, BinaryNode *t) const
+		{
+			if (t == nullptr)
+				return false;
+			else if (x < t->element)
+				return contains(x, t->left);
+			else if (t->element < x)
+				return contains(x, t->right);
+			else
+				return BiIterator(t);    // Match
+		}		
 };
 
 #endif

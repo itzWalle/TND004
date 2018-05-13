@@ -8,7 +8,7 @@
 
 using namespace std;
 
- //Test program 3: BiIterator
+ Test program 3: BiIterator
 int main( )
 {
     BinarySearchTree<string> T;
@@ -24,7 +24,7 @@ int main( )
     file.close();
 
     for(auto j: V1)
-        T.insert( j );
+        T.insert(j);
 
     /**************************************/
     cout << "\nPHASE 1: contains\n\n";
