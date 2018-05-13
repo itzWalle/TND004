@@ -184,7 +184,6 @@ class BinarySearchTree
     {
         root = remove( x, root );
     }
-
 																																		///FIND_PRED_SUCC
 	void find_pred_succ(const Comparable& x, Comparable& pred, Comparable& succ) const
 	{
@@ -401,26 +400,48 @@ class BinarySearchTree
 		return t->parent;
 	}
 
-	public:
+	public:																												///BSTIterator
 		class BiIterator
 		{
 		public:
-			BiIterator(BinaryNode* p = nullptr);
-			Comparable& operator*() const {}
-			Comparable* operator->() const {}
-			bool operator==(const BiIterator &it) const {}
-			bool operator!=(const BiIterator &it) const {}
+			BiIterator() = default;
+			
+			BiIterator(BinaryNode* t) { current = t; }
+
+			Comparable& operator*() const { return current->element; }
+			
+			Comparable* operator->() const { &(current->element); }
+			
+			bool operator==(const BiIterator &t) const { return current == t.current; }
+
+			bool operator!=(const BiIterator &t) const { return current != t.current; }
+			
 			BiIterator& operator++()
 			{
 				current = find_successor(current);
 				return *this;
 			}
-			BiIterator& ++operator()
+
 			BiIterator& operator--()
-			BiIterator& ++operator()
+			{
+				current = find_predecessor(current);
+				return *this;
+			}
+
+			BiIterator begin() const
+			{
+				if (isEmpty()) return end();
+
+				return BiIterator(findMin(root));
+			}
+
+			BiIterator end() const
+			{
+				return BiIterator();
+			}
 
 		private:
-			Node * current;
+			BinaryNode* current;
 		};
 
     /**
@@ -428,7 +449,7 @@ class BinarySearchTree
      * x is item to search for.
      * t is the node that roots the subtree.
      */
-    bool contains( const Comparable & x, BinaryNode *t ) const
+    BiIterator contains( const Comparable & x, BinaryNode *t ) const
     {
         if( t == nullptr )
             return false;
@@ -439,6 +460,12 @@ class BinarySearchTree
         else
             return true;    // Match
     }
+
+	BiIterator contains(const Comparable& x)
+	{
+		return contains(x, root);
+	}
+
 /****** NONRECURSIVE VERSION*************************
     bool contains( const Comparable & x, BinaryNode *t ) const
     {
