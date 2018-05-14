@@ -65,7 +65,7 @@ int main( )
 
     cout << "\nFinished testing" << endl;
 
-	//system("pause");
+	
 
     return 0;
 }
