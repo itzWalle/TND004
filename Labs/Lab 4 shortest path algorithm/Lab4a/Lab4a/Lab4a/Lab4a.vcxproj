@@ -115,6 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Code4a\digraph.cpp" />
+    <ClCompile Include="..\..\Code4a\list.cpp" />
+    <ClCompile Include="..\..\Code4a\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Code4a\digraph.h" />
+    <ClInclude Include="..\..\Code4a\list.h" />
+    <ClInclude Include="..\..\Code4a\queue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

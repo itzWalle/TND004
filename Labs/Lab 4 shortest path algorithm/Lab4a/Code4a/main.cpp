@@ -6,7 +6,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 #include <cstdlib>
+
 
 using namespace std;
 
@@ -24,6 +26,8 @@ Digraph * readGraph(string fileName);
 
 int main()
 {
+	//cout << "current dir " << filesystem::current_path() << endl;
+
     int choice = 0;
     string fileName;
     int s, t;
