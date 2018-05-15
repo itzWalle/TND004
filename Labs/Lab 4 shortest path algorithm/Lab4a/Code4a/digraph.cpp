@@ -112,7 +112,34 @@ void Digraph::pwsssp(int s)
 
     /// *** TODO ***																											TODO									
 
+	Queue<int> Q;
 
+	for (int v = 1; v <= size; v++)
+	{
+		dist[v] = infinity;
+		path[v] = 0;
+	}
+
+	dist[s] = 0;
+	Q.enqueue(s);
+
+	while (!Q.isEmpty())
+	{
+		int v = Q.getFront();
+		Node *u = array[v].getFirst();
+		Q.dequeue();
+
+		while (u != nullptr)
+		{
+			if (dist[u->vertex] == infinity)
+			{
+				dist[u->vertex] = dist[v] + 1;
+				path[u->vertex] = v;
+				Q.enqueue(u->vertex);
+			}
+			u = u->next;
+		}
+	}
 
 
 
@@ -164,12 +191,20 @@ void Digraph::printPath(int t) const
 
 	printHelp(t);
 
-	cout << "(" << dist[t] << ")" << endl;
+	cout << "     (" << dist[t] << ")" << endl;
 }
 
 void Digraph::printHelp(int t) const
 {
 	//Do recursive here
-
-
+	if (path[t] == 0)
+	{
+		cout << "     " << t;
+		return;
+	}
+	else if (t != 0)
+	{
+		printHelp(path[t]);
+		cout << "     " << t;
+	}
 }
