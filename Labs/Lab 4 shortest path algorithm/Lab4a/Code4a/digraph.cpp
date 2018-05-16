@@ -108,9 +108,7 @@ void Digraph::pwsssp(int s)
 	}
     /// *** TODO ***																											TODO									
 
-	Queue<int> Q;
-
-	for (int v = 1; v <= size; v++)
+	for (int v = 0; v <= size; v++)
 	{
 		dist[v] = infinity;
 		path[v] = 0;
@@ -119,25 +117,26 @@ void Digraph::pwsssp(int s)
 
 	dist[s] = 0;
 	done[s] = true;
-	Q.enqueue(s);
+	int v = s;
 
 	while (true)
 	{
-						///Här va?????
-		int v = Q.getFront();
 		Node *u = array[v].getFirst();
-		Q.dequeue();
 
 		while (u != nullptr)
 		{
-			if (dist[u->vertex] == infinity)
+			if (done[u->vertex] == false && dist[u->vertex] > dist[v] + u->weight)
 			{
-				dist[u->vertex] = dist[v] + 1;
+				dist[u->vertex] = dist[v] + u->weight;
 				path[u->vertex] = v;
-				Q.enqueue(u->vertex);
 			}
 			u = u->next;
 		}
+		///Function: find_smallest_undone_distance_vertex(); Here
+		v = find_smallest_dist();
+
+		if (v == 0) break;
+		done[v] = true;
 	}
 }
 

@@ -40,8 +40,22 @@ public:
 
     // print shortest path from s to t
     void printPath(int t) const;
-
+	
+	///Own made
     void printRecursive(int t) const;
+
+	///Own made
+	int find_smallest_dist()
+	{
+		int shortest = 0;
+
+		for (int i = 1; i <= size; i++)
+		{
+			if (!done[i] && dist[i] < dist[shortest])
+				shortest = i;
+		}
+		return shortest;
+	}
 
 private:
     // -- DATA MEMBERS
