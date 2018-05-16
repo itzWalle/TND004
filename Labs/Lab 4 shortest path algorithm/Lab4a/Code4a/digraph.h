@@ -41,7 +41,7 @@ public:
     // print shortest path from s to t
     void printPath(int t) const;
 
-    void printHelp(int t) const;
+    void printRecursive(int t) const;
 
 private:
     // -- DATA MEMBERS

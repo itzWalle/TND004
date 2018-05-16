@@ -96,20 +96,16 @@ void Digraph::uwsssp(int s)
 			u = u->next;
 		}
 	}
-
-
-
 }
 
 // positive weighted single source shortest pats
 void Digraph::pwsssp(int s)
 {
-    if (s < 1 || s > size)
-    {
-         cout << "\nERROR: expected source s in range 1.." << size << " !" << endl;
-         return;
-    }
-
+	if (s < 1 || s > size)
+	{
+		cout << "\nERROR: expected source s in range 1.." << size << " !" << endl;
+		return;
+	}
     /// *** TODO ***																											TODO									
 
 	Queue<int> Q;
@@ -118,13 +114,16 @@ void Digraph::pwsssp(int s)
 	{
 		dist[v] = infinity;
 		path[v] = 0;
+		done[v] = false;
 	}
 
 	dist[s] = 0;
+	done[s] = true;
 	Q.enqueue(s);
 
-	while (!Q.isEmpty())
+	while (true)
 	{
+						///Här va?????
 		int v = Q.getFront();
 		Node *u = array[v].getFirst();
 		Q.dequeue();
@@ -140,12 +139,6 @@ void Digraph::pwsssp(int s)
 			u = u->next;
 		}
 	}
-
-
-
-
-
-
 }
 
 // print graph
@@ -154,13 +147,11 @@ void Digraph::printGraph() const
     cout << "------------------------------------------------------------------" << endl;
     cout << "vertex  adjacency list                  " << endl;
     cout << "------------------------------------------------------------------" << endl;
-
-    for (int v = 1; v <= size; v++)
-    {
-        cout << setw(4) << v << " : ";
-        array[v].print();
-    }
-
+	for (int v = 1; v <= size; v++)
+	{
+		cout << setw(4) << v << " : ";
+		array[v].print();
+	}
     cout << "------------------------------------------------------------------" << endl;
 }
 
@@ -170,12 +161,10 @@ void Digraph::printTree() const
     cout << "----------------------" << endl;
     cout << "vertex    dist    path" << endl;
     cout << "----------------------" << endl;
-
     for (int v = 1; v <= size; v++)
     {
         cout << setw(4) << v << " :" << setw(8) << dist[v] << setw(8) << path[v] << endl;
     }
-
     cout << "----------------------" << endl;
 }
 
@@ -189,12 +178,12 @@ void Digraph::printPath(int t) const
     }
     /// *** TODO ***																										TODO
 
-	printHelp(t);
+	printRecursive(t);
 
 	cout << "     (" << dist[t] << ")" << endl;
 }
 
-void Digraph::printHelp(int t) const
+void Digraph::printRecursive(int t) const
 {
 	//Do recursive here
 	if (path[t] == 0)
@@ -204,7 +193,7 @@ void Digraph::printHelp(int t) const
 	}
 	else if (t != 0)
 	{
-		printHelp(path[t]);
+		printRecursive(path[t]);
 		cout << "     " << t;
 	}
 }
