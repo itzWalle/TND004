@@ -115,6 +115,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Code4b\dsets.h" />
+    <ClInclude Include="..\..\Code4b\edge.h" />
+    <ClInclude Include="..\..\Code4b\graph.h" />
+    <ClInclude Include="..\..\Code4b\heap.h" />
+    <ClInclude Include="..\..\Code4b\list.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Code4b\dsets.cpp" />
+    <ClCompile Include="..\..\Code4b\edge.cpp" />
+    <ClCompile Include="..\..\Code4b\graph.cpp" />
+    <ClCompile Include="..\..\Code4b\list.cpp" />
+    <ClCompile Include="..\..\Code4b\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

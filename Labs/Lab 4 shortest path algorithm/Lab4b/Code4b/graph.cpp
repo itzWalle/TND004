@@ -16,7 +16,7 @@ using namespace std;
 #include "heap.h"
 #include "dsets.h"
 
-const int INFINITY = 9999;
+const int infinity = 9999;
 
 // -- CONSTRUCTORS
 
@@ -58,13 +58,79 @@ void Graph::removeEdge(int u, int v)
 // Prim's minimum spanning tree algorithm
 void Graph::mstPrim() const
 {
-    // *** TODO ***
+    /// *** TODO ***
+	int  *dist = new int[size+1];
+	int  *path = new int[size+1];
+	bool *done = new bool[size+1];
+
+	for (int v = 0; v <= size; v++)
+	{
+		dist[v] = infinity;
+		path[v] = 0;
+		done[v] = false;
+	}
+
+	int start = 1;
+	int totalWeight = 0;
+	dist[start] = 0;
+	done[start] = true;
+	int v = 1;
+
+	while (true)
+	{
+		Node *u = array[v].getFirst();
+
+		while (u)
+		{
+			if (done[u->vertex] == false && dist[u->vertex] > u->weight)
+			{
+				dist[u->vertex] = u->weight;
+				path[u->vertex] = v;
+			}
+			u = u->next;
+		}
+
+		int shortest = 0;
+
+		for (int i = 1; i <= size; i++)
+		{
+			if (!done[i] && dist[i] < dist[shortest])
+				shortest = i;
+		}
+
+		v = shortest;
+
+		if (v == 0) break;
+		done[v] = true;
+
+		if (dist[shortest] == infinity)
+			break;
+		totalWeight += dist[v];
+	}
+	cout << "Total weight = " << totalWeight << endl;
 }
 
 // Kruskal's minimum spanning tree algorithm
 void Graph::mstKruskal() const
 {
-    // *** TODO ***
+    /// *** TODO ***
+	Heap<Edge> H;
+	DSets D(size);
+	int counter = 0, totalWeight = 0;
+
+	///Build heap of edges
+	for (int i = 1; i <= size; i++)
+	{
+		Node* u = array[i].getFirst();
+
+		while (u)
+		{
+			if (u->vertex < i)
+				H.insert(Edge(u->vertex, i, u->weight));
+		}
+		u = array[i].getNext();
+	}
+
 }
 
 // print graph
