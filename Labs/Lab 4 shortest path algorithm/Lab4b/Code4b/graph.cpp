@@ -63,7 +63,7 @@ void Graph::mstPrim() const
 	int  *path = new int[size+1];
 	bool *done = new bool[size+1];
 
-	for (int v = 0; v <= size; v++)
+	for (int v = 1; v <= size; v++)
 	{
 		dist[v] = infinity;
 		path[v] = 0;
@@ -89,22 +89,20 @@ void Graph::mstPrim() const
 			}
 			u = u->next;
 		}
-
-		int shortest = 0;
+		done[v] = true;
+		int shortest = infinity;
 
 		for (int i = 1; i <= size; i++)
 		{
-			if (!done[i] && dist[i] < dist[shortest])
-				shortest = i;
+			if (!done[i] && dist[i] < shortest)
+			{
+				shortest = dist[i];
+				v = i;
+			}
 		}
 
-		v = shortest;
-
-		if (v == 0) break;
-		done[v] = true;
-
-		if (dist[shortest] == infinity)
-			break;
+		if (shortest == infinity) break;
+		cout << "( " << path[v] << ", " << v << ", " << dist[v] << ")" << endl;
 		totalWeight += dist[v];
 	}
 	cout << "Total weight = " << totalWeight << endl;
@@ -119,18 +117,33 @@ void Graph::mstKruskal() const
 	int counter = 0, totalWeight = 0;
 
 	///Build heap of edges
-	for (int i = 1; i <= size; i++)
+	for (int v = 1; v <= size; v++)
 	{
-		Node* u = array[i].getFirst();
+		Node* u = array[v].getFirst();
 
 		while (u)
 		{
-			if (u->vertex < i)
-				H.insert(Edge(u->vertex, i, u->weight));
+			if (u->vertex < v)
+				H.insert(Edge(u->vertex, v, u->weight));
+
+			u = array[v].getNext();
 		}
-		u = array[i].getNext();
 	}
 
+	Edge e;
+	while (counter < size - 1)
+	{
+		e = H.deleteMin();
+		if (D.find(e.head) != D.find(e.tail))
+		{
+			cout << e << endl;
+			totalWeight += e.weight;
+			D.join(D.find(e.head), D.find(e.tail));
+			counter++;
+		}
+	}
+	cout << endl;
+	cout << "Total weight: " << totalWeight;
 }
 
 // print graph

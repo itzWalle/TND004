@@ -108,7 +108,7 @@ void Digraph::pwsssp(int s)
 	}
     /// *** TODO ***																											TODO									
 
-	for (int v = 0; v <= size; v++)
+	for (int v = 1; v <= size; v++)
 	{
 		dist[v] = infinity;
 		path[v] = 0;
