@@ -108,7 +108,7 @@ void Digraph::pwsssp(int s)
 	}
     /// *** TODO ***																											TODO									
 
-	for (int v = 1; v <= size; v++)
+	for (int v = 0; v <= size; v++)  ///?????  1??????
 	{
 		dist[v] = infinity;
 		path[v] = 0;
@@ -136,6 +136,7 @@ void Digraph::pwsssp(int s)
 		v = find_smallest_dist();
 
 		if (v == 0) break;
+
 		done[v] = true;
 	}
 }
