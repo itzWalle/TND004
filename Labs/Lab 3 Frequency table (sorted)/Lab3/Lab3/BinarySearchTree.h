@@ -207,21 +207,6 @@ class BinarySearchTree
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 																																			///PRIVATE HERE YES
   private:
 
@@ -319,12 +304,12 @@ class BinarySearchTree
             t->element = findMin( t->right )->element;
             t->right = remove( t->element, t->right );
         }
-        else
-        {
-            BinaryNode *oldNode = t;
-            t = ( t->left != nullptr ) ? t->left : t->right;
-            delete oldNode;
-        }
+			else
+			{
+				BinaryNode *oldNode = t;
+				t = ( t->left != nullptr ) ? t->left : t->right;
+				delete oldNode;
+			}
 
          return t;
     }
@@ -368,7 +353,7 @@ class BinarySearchTree
 
         return false;   // No match
     }
-*****************************************************/
+/*****************************************************/
 
     /**
      * Internal method to make subtree empty.
@@ -501,6 +486,12 @@ class BinarySearchTree
 				current = find_successor(current);
 				return *this;
 			}
+
+			//BiIterator& operator++(int )   i++
+			//{
+			//	current = find_successor(current);
+			//	return *this;
+			//}
 
 			BiIterator& operator--()
 			{
